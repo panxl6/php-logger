@@ -17,7 +17,8 @@
 
 ### 配置开发环境
 本文以ubuntu 18.04、PHP 7.0为例。
-php开发环境安装(建议通过源码方式安装)
+
+运行utils/install.sh，安装PHP7.0开发环境：
 ```bash
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
@@ -25,8 +26,22 @@ sudo apt-get update
 sudo apt-get install php7.0 php7.0-dev
 ```
 
+使用PHP源码中(php-src/ext目录下)提供的工具创建初始化目录：
+```
+./ext/ext_skel --extname=logger
+```
+
+将ext/logger/config.m4中的编译选项取消注释
+```
+PHP_ARG_ENABLE(logger, whether to enable logger support,
+dnl Make sure that the comment is aligned:
+[  --enable-logger           Enable logger support])
+```
+
+运行utils/build.sh,构建扩展。并在php.ini(/etc/php/7.0/cli/php.ini以及/etc/php/7.0/fpm/php.ini)中添加`extension=logger.so`
 
 ### Hello world
+
 
 
 ### 参考文献
