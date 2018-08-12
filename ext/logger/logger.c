@@ -15,7 +15,6 @@ ZEND_DECLARE_MODULE_GLOBALS(logger)
 /* True global resources - no need for thread safety here */
 static int le_logger;
 
-/* Remove comments and fill if you need to have entries in php.ini*/
 PHP_INI_BEGIN()
 PHP_INI_ENTRY("logger.dir","/var/log/",PHP_INI_ALL,NULL)
 PHP_INI_END()
@@ -65,14 +64,16 @@ static void php_logger_init_globals(zend_logger_globals *logger_globals)
 */
 /* }}} */
 
-/* {{{ PHP_MINIT_FUNCTION
- */
 PHP_MINIT_FUNCTION(logger)
 {
+	// 注册Logger类
+	zend_class_entry ce;
+	INIT_CLASS_ENTRY(ce, "Logger", NULL);
+	zend_register_internal_class(&ce);
+
 	REGISTER_INI_ENTRIES();
 	return SUCCESS;
 }
-/* }}} */
 
 PHP_MSHUTDOWN_FUNCTION(logger)
 {
