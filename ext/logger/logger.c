@@ -15,28 +15,28 @@ ZEND_DECLARE_MODULE_GLOBALS(logger)
 /* True global resources - no need for thread safety here */
 static int le_logger;
 
-/* {{{ PHP_INI
- */
-/* Remove comments and fill if you need to have entries in php.ini
+/* Remove comments and fill if you need to have entries in php.ini*/
 PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("logger.global_value",      "42", PHP_INI_ALL, OnUpdateLong, global_value, zend_logger_globals, logger_globals)
-    STD_PHP_INI_ENTRY("logger.global_string", "foobar", PHP_INI_ALL, OnUpdateString, global_string, zend_logger_globals, logger_globals)
+PHP_INI_ENTRY("logger.dir","/var/log/",PHP_INI_ALL,NULL)
 PHP_INI_END()
-*/
-/* }}} */
+
 
 /* Remove the following function when you have successfully modified config.m4
    so that your module can be compiled into PHP, it exists only for testing
    purposes. */
 
-/* Every user-visible function in PHP should document itself in the source */
-/* {{{ proto string confirm_logger_compiled(string arg)
-   Return a string to confirm that the module is compiled in */
 PHP_FUNCTION(confirm_logger_compiled)
 {
 	char *arg = NULL;
 	size_t arg_len, len;
 	zend_string *strg;
+
+	// 获取日志写入目录
+	char *log_dir = INI_STR("logger.dir");
+	puts(log_dir);
+
+
+	// 获取当前脚本文件名
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &arg, &arg_len) == FAILURE) {
 		return;
@@ -69,27 +69,17 @@ static void php_logger_init_globals(zend_logger_globals *logger_globals)
  */
 PHP_MINIT_FUNCTION(logger)
 {
-	/* If you have INI entries, uncomment these lines
 	REGISTER_INI_ENTRIES();
-	*/
 	return SUCCESS;
 }
 /* }}} */
 
-/* {{{ PHP_MSHUTDOWN_FUNCTION
- */
 PHP_MSHUTDOWN_FUNCTION(logger)
 {
-	/* uncomment this line if you have INI entries
 	UNREGISTER_INI_ENTRIES();
-	*/
 	return SUCCESS;
 }
-/* }}} */
 
-/* Remove if there's nothing to do at request start */
-/* {{{ PHP_RINIT_FUNCTION
- */
 PHP_RINIT_FUNCTION(logger)
 {
 #if defined(COMPILE_DL_LOGGER) && defined(ZTS)
@@ -97,40 +87,25 @@ PHP_RINIT_FUNCTION(logger)
 #endif
 	return SUCCESS;
 }
-/* }}} */
 
-/* Remove if there's nothing to do at request end */
-/* {{{ PHP_RSHUTDOWN_FUNCTION
- */
 PHP_RSHUTDOWN_FUNCTION(logger)
 {
 	return SUCCESS;
 }
-/* }}} */
 
-/* {{{ PHP_MINFO_FUNCTION
- */
 PHP_MINFO_FUNCTION(logger)
 {
 	php_info_print_table_start();
 	php_info_print_table_header(2, "logger support", "enabled");
 	php_info_print_table_end();
 
-	/* Remove comments if you have entries in php.ini
 	DISPLAY_INI_ENTRIES();
-	*/
 }
-/* }}} */
 
-/* {{{ logger_functions[]
- *
- * Every user visible function must have an entry in logger_functions[].
- */
 const zend_function_entry logger_functions[] = {
 	PHP_FE(confirm_logger_compiled,	NULL)		/* For testing, remove later. */
 	PHP_FE_END	/* Must be the last line in logger_functions[] */
 };
-/* }}} */
 
 /* {{{ logger_module_entry
  */
