@@ -73,7 +73,22 @@ ZEND_METHOD(Logger, __destruct)
 // 调试信息
 ZEND_METHOD(Logger, info)
 {
+	zend_string *data;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &data) == FAILURE)
+		RETURN_FALSE;
+
 	php_printf("debug");
+	php_printf("%s\n", ZSTR_VAL(data));
+
+	// 日志文件的完整路径
+	char *path = "/home/panxl/log/20180812.log";
+
+	FILE *fp;
+	fp = fopen(path, "w+");
+
+	fwrite(ZSTR_VAL(data), sizeof(char),data->len, fp);
+	fclose(fp);
 }
 
 // 告警信息
@@ -94,13 +109,13 @@ ZEND_METHOD(Logger, fatal)
 	php_printf("fatal");
 }
 
-// 获取调试信息(私有方法)
+// 获取调试信息(保护方法)
 ZEND_METHOD(Logger, get_context)
 {
 	php_printf("get_context");
 }
 
-// 将日志信息写入到文件
+// 将日志信息写入到文件(保护方法)
 ZEND_METHOD(Logger, write)
 {
 	php_printf("write");
@@ -144,6 +159,8 @@ PHP_MINIT_FUNCTION(logger)
 	zend_declare_class_constant_long(logger_ce, "ERR", strlen("ERR"), 2);
 	zend_declare_class_constant_long(logger_ce, "FATAL", strlen("FATAL"), 3);
 
+	// 声明类变量
+	zend_declare_property_string(logger_ce, "fileName", strlen("fileName"),"temp.log",ZEND_ACC_PROTECTED);
 
 	REGISTER_INI_ENTRIES();
 	return SUCCESS;
