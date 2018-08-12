@@ -19,35 +19,9 @@ static int le_logger;
 zend_class_entry* logger_ce;
 
 PHP_INI_BEGIN()
-PHP_INI_ENTRY("logger.dir","/var/log/",PHP_INI_ALL,NULL)
+	PHP_INI_ENTRY("logger.dir","/var/log/",PHP_INI_ALL,NULL)
 PHP_INI_END()
 
-
-/* Remove the following function when you have successfully modified config.m4
-   so that your module can be compiled into PHP, it exists only for testing
-   purposes. */
-
-/*PHP_FUNCTION(confirm_logger_compiled)
-{
-	char *arg = NULL;
-	size_t arg_len, len;
-	zend_string *strg;
-
-	// 获取日志写入目录
-	char *log_dir = INI_STR("logger.dir");
-	puts(log_dir);
-
-
-	// 获取当前脚本文件名
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &arg, &arg_len) == FAILURE) {
-		return;
-	}
-
-	strg = strpprintf(0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now compiled into PHP.", "logger", arg);
-
-	RETURN_STR(strg);
-}*/
 
 /* Uncomment this function if you have INI entries
 static void php_logger_init_globals(zend_logger_globals *logger_globals)
@@ -80,12 +54,12 @@ ZEND_METHOD(Logger, info)
 
 	php_printf("debug");
 	php_printf("%s\n", ZSTR_VAL(data));
-
+	
 	// 日志文件的完整路径
 	char *path = "/home/panxl/log/20180812.log";
 
 	FILE *fp;
-	fp = fopen(path, "w+");
+	fp = fopen(path, "a+");
 
 	fwrite(ZSTR_VAL(data), sizeof(char),data->len, fp);
 	fclose(fp);
@@ -112,6 +86,14 @@ ZEND_METHOD(Logger, fatal)
 // 获取调试信息(保护方法)
 ZEND_METHOD(Logger, get_context)
 {
+	// 日志的级别
+	// 时间戳
+	// 主机名称(ip)
+	// 进程id
+	// HTTP:url,请求方法
+	// 文件名,行号
+	// 当前内存使用量
+	
 	php_printf("get_context");
 }
 
@@ -119,6 +101,12 @@ ZEND_METHOD(Logger, get_context)
 ZEND_METHOD(Logger, write)
 {
 	php_printf("write");
+}
+
+// 将日志信息格式化(保护方法) 
+ZEND_METHOD(Logger, format)
+{
+	php_printf("format");
 }
 
 
@@ -139,8 +127,7 @@ const zend_function_entry logger_functions[] = {
 	// 内部实现
 	PHP_ME(Logger, write, NULL, ZEND_ACC_PROTECTED)
 	PHP_ME(Logger, get_context, NULL, ZEND_ACC_PROTECTED)
-
-
+	PHP_ME(Logger, format, NULL, ZEND_ACC_PROTECTED)
 
 	PHP_FE_END	/* Must be the last line in logger_functions[] */
 };
@@ -174,6 +161,24 @@ PHP_MSHUTDOWN_FUNCTION(logger)
 
 PHP_RINIT_FUNCTION(logger)
 {
+	// Request信息
+	zend_is_auto_global_str("_SERVER", strlen("_SERVER"));
+	zval *server = zend_hash_str_find(&EG(symbol_table), "_SERVER", strlen("_SERVER"));
+
+	zval func_name;
+	ZVAL_STR(&func_name, zend_string_init("var_dump", strlen("var_dump"),0));
+	
+	zval retval;
+	if (call_user_function(EG(function_table), NULL, &func_name, &retval,1,server) == SUCCESS)
+		php_printf("调用成功");
+	else
+		php_printf("var_dump调用失败");
+
+	php_printf("初始化请求信息\n");
+
+	zval_ptr_dtor(&func_name);
+	zval_ptr_dtor(&retval);
+
 #if defined(COMPILE_DL_LOGGER) && defined(ZTS)
 	ZEND_TSRMLS_CACHE_UPDATE();
 #endif
@@ -201,8 +206,8 @@ zend_module_entry logger_module_entry = {
 	logger_functions,
 	PHP_MINIT(logger),
 	PHP_MSHUTDOWN(logger),
-	PHP_RINIT(logger),		/* Replace with NULL if there's nothing to do at request start */
-	PHP_RSHUTDOWN(logger),	/* Replace with NULL if there's nothing to do at request end */
+	PHP_RINIT(logger),
+	PHP_RSHUTDOWN(logger),
 	PHP_MINFO(logger),
 	PHP_LOGGER_VERSION,
 	STANDARD_MODULE_PROPERTIES
