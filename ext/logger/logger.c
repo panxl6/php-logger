@@ -15,6 +15,9 @@ ZEND_DECLARE_MODULE_GLOBALS(logger)
 /* True global resources - no need for thread safety here */
 static int le_logger;
 
+// 全局的类入口
+zend_class_entry* logger_ce;
+
 PHP_INI_BEGIN()
 PHP_INI_ENTRY("logger.dir","/var/log/",PHP_INI_ALL,NULL)
 PHP_INI_END()
@@ -69,7 +72,13 @@ PHP_MINIT_FUNCTION(logger)
 	// 注册Logger类
 	zend_class_entry ce;
 	INIT_CLASS_ENTRY(ce, "Logger", NULL);
-	zend_register_internal_class(&ce);
+	logger_ce = zend_register_internal_class(&ce);
+
+	// 声明类常量:日志的影响级别
+	zend_declare_class_constant_long(logger_ce, "INFO", strlen("INFO"), 0);
+	zend_declare_class_constant_long(logger_ce, "WARN", strlen("WARN"), 1);
+	zend_declare_class_constant_long(logger_ce, "ERR", strlen("ERR"), 2);
+	zend_declare_class_constant_long(logger_ce, "FATAL", strlen("FATAL"), 3);
 
 	REGISTER_INI_ENTRIES();
 	return SUCCESS;
