@@ -79,6 +79,8 @@ dnl Make sure that the comment is aligned:
 
 ### 参考文献
 
-[1]: [https://phpinternals.net/](https://phpinternals.net/)
-[2]: [http://www.phpinternalsbook.com/](http://www.phpinternalsbook.com/)
-[3]: [https://github.com/huqinlou0123/php-internals-extended-development-course](https://github.com/huqinlou0123/php-internals-extended-development-course)
+1: [https://phpinternals.net/](https://phpinternals.net/)
+
+2: [http://www.phpinternalsbook.com/](http://www.phpinternalsbook.com/)
+
+3: [https://github.com/huqinlou0123/php-internals-extended-development-course](https://github.com/huqinlou0123/php-internals-extended-development-course)
