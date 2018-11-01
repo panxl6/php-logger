@@ -5,6 +5,10 @@
 - 场景介绍
 - 配置开发环境
 - Hello world
+- 基本功能
+- 利用PHP语言的能力
+- 使用外部库
+- 使用Go语言实现
   
 
 ### 场景介绍
@@ -52,6 +56,25 @@ dnl Make sure that the comment is aligned:
 
 运行demo目录下的示例`php demo/1.hello_world.php`，即可看到输出。
 至此，你已经完成了PHP扩展的Hello world开发。
+
+
+### 基本功能
+- 定义函数
+- 定义类
+- 定义类方法
+- 定义类变量
+- 定义全局变量
+- 使用php.ini配置文件
+
+### 利用PHP的能力
+- 使用PHP语言的特性
+- 使用PHP内核提供的API(php_stream)
+- 实现持久连接
+
+
+### 使用Go语言实现
+- 实现Hello world
+- 基本思路
 
 
 ### 参考文献
