@@ -82,7 +82,9 @@ dnl Make sure that the comment is aligned:
 
 对于一些定制化程度要求不太高的项目，我们可以使用有一些php扩展开发框架来加速开发。例如,[swoole衍生项目phpx](https://github.com/swoole/phpx)。但是这一类的项目对于底层的API支持程度并不丰富，目前都不太适合用于复杂的生产环境。
 
-另一个思路是使用go语言来开发php扩展。go语言可以使用原生的c语言代码。同样的，go语言开发php扩展的社区支持也并不丰富，而且绕一个大弯来使用PHP，还不如直接使用go语言开发。
+另一个思路是使用go语言来开发php扩展。go语言可以使用原生的c语言代码。go语言可以打包成`.so`文件，我们的PHP扩展正是`.so`文件，这样以来，go语言的能力和php的能力就可以联系在一起了。
+
+同样的，go语言开发php扩展的社区支持也并不丰富，而且绕一个大弯来使用PHP，还不如直接使用go语言开发。
 
 在这里，我们提供一个开源项目以供参考:[kitech/php-go](https://github.com/kitech/php-go)。
 
