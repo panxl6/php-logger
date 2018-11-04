@@ -84,6 +84,20 @@ dnl Make sure that the comment is aligned:
 - 使用php.ini配置文件
 
 
+1. 实现一个logger函数;
+2. 实现一个logger函数，向指定的文件写入日志信息(字符串);
+3. 实现一个logger函数，通过ini配置文件指定日志文件路径，并向其中写入日志信息;
+4. 实现一个Logger类;
+5. 实现一个Logger类，并提供info、debug、warn、error四个接口;
+6. 实现一个Logger类，并提供info、debug、warn、error四个接口。获取当前程序运行的上下文;
+
+
+**调试信息的要素**
+- 当前时间;
+- 文件信息;
+- debugtrace信息(调用栈);
+- $_SERVER信息(我们只讨论Request环境，cli模式没有这个信息);
+
 ### 利用PHP的能力
 - 使用PHP语言的特性
 - 使用PHP内核提供的API(php_stream)
