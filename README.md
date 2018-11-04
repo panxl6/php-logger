@@ -84,7 +84,7 @@ dnl Make sure that the comment is aligned:
 
 另一个思路是使用go语言来开发php扩展。go语言可以使用原生的c语言代码。同样的，go语言开发php扩展的社区支持也并不丰富，而且绕一个大弯来使用PHP，还不如直接使用go语言开发。
 
-我们在这里提供两个开源项目以供参考:kitech/php-go、GoPHP7-ext。
+在这里，我们提供一个开源项目以供参考:[kitech/php-go](https://github.com/kitech/php-go)。
 
 ### 参考文献
 
@@ -93,5 +93,3 @@ dnl Make sure that the comment is aligned:
 2: [phpinternalsbook](http://www.phpinternalsbook.com/)
 
 3: [php-internals-extended-development-course](https://github.com/huqinlou0123/php-internals-extended-development-course)
-
-4: [gophp7-ext/](http://gophp7.org/gophp7-ext/)
