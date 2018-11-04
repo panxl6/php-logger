@@ -76,11 +76,17 @@ dnl Make sure that the comment is aligned:
 - 实现Hello world
 - 基本思路
 
+整个流程走下来，我们发现使用C语言调用原始的zend API开发效率比较低。
+对于一些定制化程度要求不太高的项目，我们可以使用有一些php扩展开发框架来加速开发。例如,[swoole衍生项目phpx](https://github.com/swoole/phpx)。但是这一类的项目对于底层的API支持程度并不丰富，目前都不太适合用于复杂的生产环境。
+另一个思路是使用go语言来开发php扩展。go语言可以使用原生的c语言代码。同样的，go语言开发php扩展的社区支持也并不丰富，而且绕一个大弯来使用PHP，还不如直接使用go语言开发。
+我们在这里提供两个开源项目以供参考:kitech/php-go、GoPHP7-ext。
 
 ### 参考文献
 
-1: [https://phpinternals.net/](https://phpinternals.net/)
+1: [phpinternals](https://phpinternals.net/)
 
-2: [http://www.phpinternalsbook.com/](http://www.phpinternalsbook.com/)
+2: [phpinternalsbook](http://www.phpinternalsbook.com/)
 
-3: [https://github.com/huqinlou0123/php-internals-extended-development-course](https://github.com/huqinlou0123/php-internals-extended-development-course)
+3: [php-internals-extended-development-course](https://github.com/huqinlou0123/php-internals-extended-development-course)
+
+4: [gophp7-ext/](http://gophp7.org/gophp7-ext/)
