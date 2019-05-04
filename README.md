@@ -1,6 +1,6 @@
 # PHP扩展开发介绍
 
-PHP日志扩展已经有成熟的[sealog](https://github.com/Neeke/SeasLog)了，这个项目只是提供一个尝试和思路。
+PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了，这个项目只是提供一个尝试和思路。
 
 ## 目录
 
