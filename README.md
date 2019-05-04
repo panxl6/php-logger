@@ -1,5 +1,7 @@
 # PHP扩展开发介绍
 
+PHP日志扩展已经有成熟的[sealog](https://github.com/Neeke/SeasLog)了，这个项目只是提供一个尝试和思路。
+
 ## 目录
 
 - 阅读前提
@@ -126,7 +128,7 @@ dnl Make sure that the comment is aligned:
 #### Go语言实现PHP扩展的Hello world
 在这里，我们提供两个开源项目以供参考:[kitech/php-go](https://github.com/kitech/php-go)、[write php extension in go](https://github.com/do-aki/gophp_sample)。
 
-#### benchmark
+#### Benchmark
 - [ ] 比较PHP扩展的方式实现，跟现有的主流日志框架之间的性能比较
 
 ### 参考文献
