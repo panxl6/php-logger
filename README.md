@@ -123,8 +123,11 @@ dnl Make sure that the comment is aligned:
 
 同样的，go语言开发php扩展的社区支持也并不丰富，而且绕一个大弯来使用PHP，还不如直接使用go语言开发。
 
-#### 实现Hello world
+#### Go语言实现PHP扩展的Hello world
 在这里，我们提供两个开源项目以供参考:[kitech/php-go](https://github.com/kitech/php-go)、[write php extension in go](https://github.com/do-aki/gophp_sample)。
+
+#### benchmark
+- [ ] 比较PHP扩展的方式实现，跟现有的主流日志框架之间的性能比较
 
 ### 参考文献
 
