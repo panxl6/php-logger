@@ -28,6 +28,8 @@ PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了�
 
 ![PHP扩展示意图](https://raw.githubusercontent.com/panxl6/blog/master/Images/php-logger/php-archteture.jpg)
 
+> 图片引用来源：https://www.kancloud.cn/nickbai/php7/363265
+
 ### 日志组件的功能蓝图
 我们打日志，主要是留下软件运行过程中的一些快照信息，尤其是一些可能出错和关键路径的地方，以便定位问题的时候回溯。根据这个需求，我们规划一下这个扩展应有的一些功能：
 - 版本1：将日志信息(字符串)写入文本；
