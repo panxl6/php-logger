@@ -1,18 +1,19 @@
 # PHP扩展开发介绍
 
-PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了，这个项目只是提供一个尝试和思路。
+PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了，这个项目只是提供一个尝试的思路。
 
 ## 目录
 
-- 阅读前提
-- 场景介绍
-- 日志组件的功能蓝图
-- 配置开发环境
-- Hello world
-- 基本工序
-- 利用PHP语言的能力
+- [阅读前提](#阅读前提)
+- [场景介绍](#场景介绍)
+- [日志组件的功能蓝图](#日志组件的功能蓝图)
+- [配置开发环境](#配置开发环境)
+- [Hello-world](#Hello-world)
+- [基本工序](#基本工序)
+- [利用PHP语言的能力](#利用PHP语言的能力)
 - 使用外部库
-- 使用Go语言实现
+- [使用Go语言实现](#使用Go语言实现)
+- [参考文献](#参考文献)
   
 
 ### 阅读前提
@@ -106,7 +107,7 @@ dnl Make sure that the comment is aligned:
 - debugtrace信息(调用栈);
 - $_SERVER信息(我们只讨论Request环境，cli模式没有这个信息);
 
-### 利用PHP的能力
+### 利用PHP语言的能力
 - 使用PHP语言的特性
 - 使用PHP内核提供的API(php_stream)
 - 实现持久连接
