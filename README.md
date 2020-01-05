@@ -28,7 +28,6 @@ PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了�
 
 ![PHP扩展示意图](https://raw.githubusercontent.com/panxl6/blog/master/Images/php-logger/php-archteture.jpg)
 
-> 图片引用来源：https://www.kancloud.cn/nickbai/php7/363265
 
 ### 日志组件的功能蓝图
 我们打日志，主要是留下软件运行过程中的一些快照信息，尤其是一些可能出错和关键路径的地方，以便定位问题的时候回溯。根据这个需求，我们规划一下这个扩展应有的一些功能：
@@ -75,7 +74,7 @@ cd utils/
 php-fpm启动过程中，会加载扩展。此过程提供了模块初始化和模块关闭两个钩子函数。除非重启php-fpm，否者这两个函数只会被调用一次。php-fpm运行期间，当接受到请求时，会执行请求初始化和请求关闭两个钩子函数。PHP通过将一个脚本的生命周期分为多个阶段，然后在不同阶段去劫持php脚本(请求)。拦截了脚本的执行权之后，php执行不同的回调函数，从而调用扩展的功能。Nginx的模块也是类似的思路。PHP的扩展实现逻辑框架提供了各类固定的钩子函数，我们只需要在钩子函数(扩展功能的入口)中调用我们的自定义逻辑即可。
 
 ![PHP脚本生命周期示意图](https://raw.githubusercontent.com/panxl6/blog/master/Images/php-logger/php-lifecycly.png)
-
+> 图片引用来源：https://www.kancloud.cn/nickbai/php7/363265
 
 **注意点**
 1. 使用PHP源码中(php-src/ext目录下)提供的工具创建初始化目录：
