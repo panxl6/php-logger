@@ -51,7 +51,7 @@ PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了�
 
 3. 运行utils/install.sh，安装PHP7.2开发环境。
 
-4. 运行utils/build.sh,构建扩展。并在php.ini(/etc/php/7.2/cli/php.ini以及/etc/php/7.2/fpm/php.ini)中添加`extension=logger.so`
+4. 运行utils/build.sh,构建扩展。并在php.ini(/etc/php/7.2/cli/php.ini以及/etc/php/7.2/fpm/php.ini)中手动添加`extension=logger.so`
 ```bash
 cd utils/
 ./build.sh
@@ -62,13 +62,6 @@ cd utils/
 
 
 ### 基本工序
-- 定义函数
-- 定义类
-- 定义类方法
-- 定义类变量
-- 定义全局变量
-- 使用php.ini配置文件
-
 
 1. 实现一个logger函数;
 2. 实现一个logger函数，向指定的文件写入日志信息(字符串);
@@ -77,12 +70,29 @@ cd utils/
 5. 实现一个Logger类，并提供info、debug、warn、error四个接口;
 6. 实现一个Logger类，并提供info、debug、warn、error四个接口。获取当前程序运行的上下文;
 
+php-fpm启动过程中，会加载扩展。此过程提供了模块初始化和模块关闭两个钩子函数。除非重启php-fpm，否者这两个函数只会被调用一次。php-fpm运行期间，当接受到请求时，会执行请求初始化和请求关闭两个钩子函数。PHP通过将一个脚本的生命周期分为多个阶段，然后在不同阶段去劫持php脚本(请求)。拦截了脚本的执行权之后，php执行不同的回调函数，从而调用扩展的功能。Nginx的模块也是类似的思路。PHP的扩展实现逻辑框架提供了各类固定的钩子函数，我们只需要在钩子函数(扩展功能的入口)中调用我们的自定义逻辑即可。
+
+![PHP脚本生命周期示意图](https://raw.githubusercontent.com/panxl6/blog/master/Images/php-logger/php-lifecycly.png)
+
+
+**注意点**
+1. 使用PHP源码中(php-src/ext目录下)提供的工具创建初始化目录：
+```
+./ext/ext_skel --extname=logger
+```
+
+2. 将ext/logger/config.m4中的编译选项取消注释
+```
+PHP_ARG_ENABLE(logger, whether to enable logger support,
+dnl Make sure that the comment is aligned:
+[  --enable-logger           Enable logger support])
+```
 
 **调试信息的要素**
 - 当前时间;
 - 文件信息;
 - debugtrace信息(调用栈);
-- $_SERVER信息(我们只讨论Request环境，cli模式没有这个信息);
+- $_SERVER信息(我们只讨论fpm模式，cli模式没有这个信息);
 
 ### 利用PHP语言的能力
 - 使用PHP语言的特性
