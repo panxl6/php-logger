@@ -2,8 +2,8 @@
 
 cd ../ext/logger
 
-phpize7.0
-./configure --with-php-config=/usr/bin/php-config7.0
+phpize7.2
+./configure --with-php-config=/usr/bin/php-config7.2
 
 make clean
 make

@@ -8,7 +8,7 @@ PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了�
 - [场景介绍](#场景介绍)
 - [日志组件的功能蓝图](#日志组件的功能蓝图)
 - [配置开发环境](#配置开发环境)
-- [Hello-world](#Hello-world)
+- [编译安装](#编译安装)
 - [基本工序](#基本工序)
 - [利用PHP语言的能力](#利用PHP语言的能力)
 - 使用外部库
@@ -32,24 +32,15 @@ PHP日志扩展已经有成熟的[sealog](https://github.com/SeasX/SeasLog)了�
 我们打日志，主要是留下软件运行过程中的一些快照信息，尤其是一些可能出错和关键路径的地方，以便定位问题的时候回溯。根据这个需求，我们规划一下这个扩展应有的一些功能：
 - 版本1：将日志信息(字符串)写入文本；
 - 版本2：自动获取软件运行的上下文信息；
-- 版本3：提供更加丰富的日志写入方式，如写入数据库、发给消息队列、发送邮件等。
-- 版本4：提供日志辅助处理工具。
+- 版本3：提供更加丰富的日志写入方式，如写入数据库、发给消息队列、发送邮件等；
+- 版本4：提供日志辅助处理工具；
 
 版本1和版本2的功能类似于原始的[PHP Logger](https://github.com/katzgrau/KLogger)工具类的实现。我们把这一类的功能由PHP实现翻译为C语言实现。版本3和版本4的功能，偏向于Monolog这一类的重型的框架。通过配置化，聚合一些其他平台的能力。为了保持文章说明性的定位和缩减文章篇幅，我们只实现版本1和版本2的功能。
 
 
-### 配置开发环境
-本文以ubuntu 18.04、PHP 7.0为例。
+### 编译安装
+本文以ubuntu 18.04、PHP 7.2为例。
 
-运行utils/install.sh，安装PHP7.0开发环境：
-```bash
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
-
-sudo apt-get install php7.0 php7.0-dev
-```
-
-### Hello world
 1. 获取项目源码
 `git clone https://github.com/panxl6/php-logger.git`
 
@@ -58,19 +49,13 @@ sudo apt-get install php7.0 php7.0-dev
 - ext: 扩展的实现逻辑
 - demo: 演示扩展提供的功能
 
-3. 使用PHP源码中(php-src/ext目录下)提供的工具创建初始化目录：
-```
-./ext/ext_skel --extname=logger
-```
+3. 运行utils/install.sh，安装PHP7.2开发环境。
 
-4. 将ext/logger/config.m4中的编译选项取消注释
+4. 运行utils/build.sh,构建扩展。并在php.ini(/etc/php/7.2/cli/php.ini以及/etc/php/7.2/fpm/php.ini)中添加`extension=logger.so`
+```bash
+cd utils/
+./build.sh
 ```
-PHP_ARG_ENABLE(logger, whether to enable logger support,
-dnl Make sure that the comment is aligned:
-[  --enable-logger           Enable logger support])
-```
-
-5. 运行utils/build.sh,构建扩展。并在php.ini(/etc/php/7.0/cli/php.ini以及/etc/php/7.0/fpm/php.ini)中添加`extension=logger.so`
 
 运行demo目录下的示例`php demo/1.hello_world.php`，即可看到输出。
 至此，你已经完成了PHP扩展的Hello world开发。
